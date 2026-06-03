@@ -1,6 +1,6 @@
 import streamlit as sl
 
-from services.normalization_service import normalize_csv
+from services.normalization import normalize_csv
 
 uploaded_file = sl.file_uploader("Selecione o arquivo .CSV", type=["csv"])
 
