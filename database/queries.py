@@ -36,13 +36,9 @@ def get_pop_density():
             AS densidade_calculada,
 
             CASE
-                WHEN (populacao / area_territorial) >= 200
-                    THEN 'Muito Alta'
-                WHEN (populacao / area_territorial) >= 100
-                    THEN 'Alta'
-                WHEN (populacao / area_territorial) >= 50
-                    THEN 'Média'
-                ELSE 'Baixa'
+                WHEN (populacao / area_territorial) > ( SELECT AVG(populacao/area_territorial) FROM estatisticas)
+                THEN 'Acima da Média Nacional'
+                ELSE 'Abaixo da Média Nacional'
             END AS classificacao
 
         FROM estatisticas
