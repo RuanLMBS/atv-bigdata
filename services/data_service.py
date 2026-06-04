@@ -9,14 +9,14 @@ def load_table(table):
 def load_pop_density_insight():
     data = get_pop_density()
 
-    very_high = len(data[data["classificacao"] == "Muito Alta"])
-    high = len(data[data["classificacao"] == "Alta"])
+    above_average = len(data[data["classificacao"] == "Acima da Média Nacional"])
+    below_average = len(data[data["classificacao"] == "Abaixo da Média Nacional"])
 
     most_dense_state = data.iloc[0]["uf"]
 
     insight = (
         f"O estado com maior densidade demográfica é {most_dense_state}, sendo portanto o estado mais povoado.\n\n"
-        f"Foram identificados {very_high} estados com densidade muito alta e {high} estados com densidade alta.\n\n"
+        f"Foram identificados {above_average} estados com densidade acima da média nacional e {below_average} estados abaixo da média nacional.\n\n"
         f"Esses estados possuem a tendencia de ter maiores investimentos em infraestrutura urbana, mobilidade, saneamento e serviços públicos devido à elevada concentração populacional."
         f"A urbanização voltada a estas áreas, principalmente {most_dense_state}, podem auxiliar no bem-estar da comunidade e na melhor articulação urbanística e paisagística."
     )
