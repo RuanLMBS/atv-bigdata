@@ -32,6 +32,9 @@ def load_avg_idh_pibpc_insight():
         data.sort_values( by="renda_per_capita_media", ascending=False).iloc[0]["regiao"]
     )
 
+    above_average = len(data[data["status_renda"]=="Acima da Média Nacional"])
+    below_average = len(data[data["status_renda"]=="Abaixo da Média Nacional"])
+    
     very_high_idh_regions = len(data[data["status_idh"] == "Muito Alto"])
     high_idh_regions = len(data[data["status_idh"] == "Alto"])
     medium_idh_regions = len(data[data["status_idh"] == "Medio"])
@@ -39,12 +42,13 @@ def load_avg_idh_pibpc_insight():
 
     insight = (
         f"A região {highest_idh} apresentou o maior IDH médio entre as regiões brasileiras, enquanto o {maior_renda} tem a maior renda per capita média.\n\n"
-        f"Foram identificadas {very_high_idh_regions} regiões com IDH Muito Alto, "
+        f"Foram identificadas {very_high_idh_regions} regiões com IDH Muito Alto\n\n "
         f"{high_idh_regions} com IDH Alto\n\n"
         f"{medium_idh_regions} com IDH Médio\n\n"
         f"{low_idh_regions} com IDH Baixo.\n\n"
+        f"{above_average} regiões possuem renda percapita acima da média nacional, e {below_average} abaixo. \n\n"
         f"Os resultados apresentam a relação diretamente proporcional entre desenvolvimento humano e renda da população, como observado na região {highest_idh}.\n\n"
-        f"Regiões com menores indicadores demandam de melhores políticas públicas voltadas à educação, qualificação profissional e geração de renda."
+        f"Regiões com menores indicadores sociais - {below_average} demandam de melhores políticas públicas voltadas à educação, qualificação profissional e geração de renda."
     )
 
     return data, insight
@@ -85,7 +89,7 @@ def load_social_vulnerability_insight():
         f"Existem {vulnerables} estados classificados com alta vulnerabilidade social.\n\n"
         f"O estado com menor renda per capita dentro deste grupo é: {worse_state_metrics}\n\n." 
         f"A combinação de ambos os dados é essencial para direcionar a criação de políticas públicas educacionais e para setores empregatícios, especialmente no(a) {worse_state_metrics}\n\n" 
-        f"Tal dado é essencial para gestores públicos e entidades a direcionarem investimentos a estes estados."
+        f"Tal dado é essencial para gestores públicos e entidades a direcionarem investimentos a estes estados, principalmente voltados à familias mais carentes e em estado crítico de vulnerabilidade social, necessitando atenção para aplicar políticas de inserção no mercado de trabalho e auxílios monetários"
     )
 
     return data, insight

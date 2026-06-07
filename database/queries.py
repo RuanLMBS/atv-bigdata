@@ -32,7 +32,7 @@ def insert_data(df, table_name):
 def get_pop_density():
     query = """
         SELECT uf, regiao, populacao, area_territorial,
-            ROUND(populacao / area_territorial, 2) 
+            ROUND((populacao / area_territorial)::NUMERIC, 2) 
             AS densidade_calculada,
 
             CASE
@@ -65,9 +65,11 @@ def get_avg_idh_pibpc():
         END AS status_idh,
 
         CASE
-            WHEN AVG(renda_per_capita) >= 2500 THEN 'Alta Renda'
-            WHEN AVG(renda_per_capita) >= 1500 THEN 'Média Renda'
-            ELSE 'Baixa Renda'
+            WHEN AVG(renda_per_capita) >
+                (SELECT AVG(renda_per_capita) FROM estatisticas)
+                THEN 'Acima da Média Nacional'
+
+                ELSE 'Abaixo da Média Nacional'
         END AS status_renda
 
         FROM estatisticas GROUP BY regiao
